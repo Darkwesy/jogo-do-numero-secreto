@@ -11,12 +11,12 @@ function changeText(tag, text) {
 
 function guessVerify() {
   let guess = document.querySelector("input").value;
-  console.log(secretNumber);
   if (guess == secretNumber) {
-    changeText("h1", "Parabens!");
     let guessWord = tryCounts > 1 ? "tentativas" : "tentativa";
-    let message = `Você descobriu o número secreto com ${tryCounts} ${guessWord}.`;
-    changeText("p", message);
+    let messageText = `Você descobriu o número secreto com ${tryCounts} ${guessWord}.`;
+    let newGame = document.querySelector("#reiniciar").removeAttribute("disabled");
+    changeText("h1", "Acertou!");
+    changeText("p", messageText);
   } else {
     if (guess > secretNumber) {
       changeText("p", "O número secreto é menor.");
@@ -40,7 +40,6 @@ function numberGenerator() {
     return numberGenerator();
   } else {
     drawnedNumbers.push(pickedNumber);
-    console.log(drawnedNumbers);
     return pickedNumber;
   }
 }
@@ -51,16 +50,16 @@ function fieldClear() {
 }
 
 function restartGame() {
-  initialMessage();
+  initialmessageText();
   fieldClear();
   secretNumber = numberGenerator();
   tryCounts = 1;
   document.querySelector("#reiniciar").setAttribute("disabled", true);
 }
 
-function initialMessage() {
+function initialmessageText() {
   changeText("h1", "Jogo do número secreto!");
   changeText("p", `Escolha um número entre 1 e ${maxRange}.`);
 }
 
-initialMessage();
+initialmessageText();
